@@ -13,7 +13,7 @@ class Hospital_TEST:
     self.hPostalCode = extractPostalCode(hAddress)
 
   def __str__(self):
-    return "{} is located at {}\nPostal Code: {}\nNearest Subway: {}".format(self.hName, self.hAddress, self.hPostalCode, self.hNearestSubway)
+    return "{} is located at {}\nPostal Code: {}\nNearest Subway: {}\nMapLocation: {}".format(self.hName, self.hAddress, self.hPostalCode, self.hNearestSubway, self.hLocation)
     
 
 #A hospital class
