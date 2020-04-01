@@ -397,7 +397,7 @@ def main():
     h7 = Hospital("Private Hospital 2", "DEF", "+512745", [120,33], "Subway 7", "Private", "Hospitals/h2.jpg",64200)
     h8 = Hospital("Private Hospital 3", "GHI", "+512545", [196,82], "Subway 8", "Private", "Hospitals/h3.jpg",859333)
     h9 = Hospital("Private Hospital 4", "JKL", "+512445", [192,177], "Subway 9", "Private", "Hospitals/h4.jpg",563421)
-    h10 = Hospital("Private Hospital 52", "MNO", "+518345", [218,192], "Subway 10", "Private", "Hospitals/h5.jpg",564322)
+    h10 = Hospital("Private Hospital 5", "MNO", "+518345", [218,192], "Subway 10", "Private", "Hospitals/h5.jpg",564322)
     #And append it to listHospitals list
     listHospitals.append(h1)
     listHospitals.append(h2)
@@ -412,7 +412,6 @@ def main():
     root = Tk()
     MainWindow(root)
     root.mainloop()
-    print("HELLO")
 if __name__ == "__main__":
     main()
 
