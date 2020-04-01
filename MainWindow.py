@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import messagebox
+from Hospital import *
 listHospitals = []  #List that will hold the records of hospitals
 #Main Window class to create a main window
 class MainWindow:
@@ -57,7 +58,7 @@ class LocationWindow:
         self.public_or_private = public_or_private
         self.master = master
         self.master.config(bg = '#d0e1f3')
-        self.master.geometry('550x760')
+        self.master.geometry('850x960')
         self.master.title('Hospitals City')
         self.widgets()
     def widgets(self):
@@ -76,8 +77,8 @@ class LocationWindow:
         labelFrame.pack(pady = 15)
         labelI = Label(labelFrame, text = "Please click your location on the map", font=("Arial", 15),bg = '#d0e1f3')
         labelI.pack()
-        canvas = Canvas(self.master, bg = '#d0e1f3')
-        img = ImageTk.PhotoImage(Image.open('Assets/map.jpg'))
+        canvas = Canvas(self.master, bg = '#d0e1f3', width=614, height=357)
+        img = ImageTk.PhotoImage(Image.open('Assets/SG_Map.png'))
         canvas.create_image(0,0,image=img)
         canvas.config(scrollregion=canvas.bbox(ALL))
 
@@ -161,9 +162,9 @@ class ShowHospitalsWindow:
             h2.append(h.hContact)
             h2.append(h.hLocation)
             h2.append(h.hNearestSubway)
-            h2.append(h.hCategory)
+            h2.append(h.hType)
             h2.append(h.hImage)
-            h2.append(h.hPostCode)
+            h2.append(h.hPostalCode)
             distance = self.distance_a_b(self.cords_OR_postal, h.hLocation)
             h2.append(distance)
             self.listHospital.append(h2)
@@ -332,7 +333,7 @@ class ShowHospitalRecord:
         self.master = master
         self.hos = hospitalDetail
         self.master.config(bg = '#d0e1f3')
-        self.master.geometry('550x760')
+        self.master.geometry('850x960')
         self.master.title('Hospitals City')
         self.widgets()
     def widgets(self):
@@ -374,44 +375,49 @@ class ShowHospitalRecord:
         MainWindow(self.newWindow)
     def Done(self): #Done button function to exit
         self.master.withdraw()
-#A hospital class
-class Hospital:
-    def __init__(self, hName, hAddress, hContact, hLocation, hNearestSubway, hCategory, hImage, hPostCode):
-        self.hName = hName
-        self.hAddress = hAddress
-        self.hContact = hContact
-        self.hImage = hImage
-        self.hLocation = hLocation
-        self.hNearestSubway = hNearestSubway
-        self.hCategory = hCategory
-        self.hPostCode = hPostCode
+
+
 def main():
-    #Main method creates the hospital objects
-    h1 = Hospital("Public Hospital 1", "ABC", "+912345", [16,57], "Subway 1", "Public", "Hospitals/h1.jpg", 123456)
-    h2 = Hospital("Public Hospital 2", "DEF", "+912745", [120,33], "Subway 2", "Public", "Hospitals/h2.jpg",67890)
-    h3 = Hospital("Public Hospital 3", "GHI", "+912545", [88,168], "Subway 3", "Public", "Hospitals/h3.jpg", 234564)
-    h4 = Hospital("Public Hospital 4", "JKL", "+912445", [319,198], "Subway 4", "Public", "Hospitals/h4.jpg",674534)
-    h5 = Hospital("Public Hospital 5", "MNO", "+918345", [185,170], "Subway 5", "Public", "Hospitals/h5.jpg",654644)
+    hospital_list = exportFromJson("hospitals_list.json")
+    print(hospitals_list[0])
+    for i in range(34):
+        listHospitals.append(Hospital_TEST(hospitals_list[i]['Hospital Name'],
+        hospitals_list[i]['Address'],
+        "+6583888832",
+        [16,57],
+        hospitals_list[i]['Region'],
+        hospitals_list[i]['Type'],
+        hospital_list[i]['Image']))
+    print("List of Hospitals imported from JSON: \n", listHospitals[0].__str__())
+
+
+    # #Main method creates the hospital objects
+    # h1 = Hospital("Public Hospital 1", "ABC", "+912345", [16,57], "Subway 1", "Public", "Hospitals/h1.jpg", 123456)
+    # h2 = Hospital("Public Hospital 2", "DEF", "+912745", [120,33], "Subway 2", "Public", "Hospitals/h2.jpg",67890)
+    # h3 = Hospital("Public Hospital 3", "GHI", "+912545", [88,168], "Subway 3", "Public", "Hospitals/h3.jpg", 234564)
+    # h4 = Hospital("Public Hospital 4", "JKL", "+912445", [319,198], "Subway 4", "Public", "Hospitals/h4.jpg",674534)
+    # h5 = Hospital("Public Hospital 5", "MNO", "+918345", [185,170], "Subway 5", "Public", "Hospitals/h5.jpg",654644)
     
-    h6 = Hospital("Private Hospital 1", "ABC", "+512345", [270,38], "Subway 6", "Private", "Hospitals/h1.jpg",65200)
-    h7 = Hospital("Private Hospital 2", "DEF", "+512745", [120,33], "Subway 7", "Private", "Hospitals/h2.jpg",64200)
-    h8 = Hospital("Private Hospital 3", "GHI", "+512545", [196,82], "Subway 8", "Private", "Hospitals/h3.jpg",859333)
-    h9 = Hospital("Private Hospital 4", "JKL", "+512445", [192,177], "Subway 9", "Private", "Hospitals/h4.jpg",563421)
-    h10 = Hospital("Private Hospital 5", "MNO", "+518345", [218,192], "Subway 10", "Private", "Hospitals/h5.jpg",564322)
-    #And append it to listHospitals list
-    listHospitals.append(h1)
-    listHospitals.append(h2)
-    listHospitals.append(h3)
-    listHospitals.append(h4)
-    listHospitals.append(h5)
-    listHospitals.append(h6)
-    listHospitals.append(h7)
-    listHospitals.append(h8)
-    listHospitals.append(h9)
-    listHospitals.append(h10)
+    # h6 = Hospital("Private Hospital 1", "ABC", "+512345", [270,38], "Subway 6", "Private", "Hospitals/h1.jpg",65200)
+    # h7 = Hospital("Private Hospital 2", "DEF", "+512745", [120,33], "Subway 7", "Private", "Hospitals/h2.jpg",64200)
+    # h8 = Hospital("Private Hospital 3", "GHI", "+512545", [196,82], "Subway 8", "Private", "Hospitals/h3.jpg",859333)
+    # h9 = Hospital("Private Hospital 4", "JKL", "+512445", [192,177], "Subway 9", "Private", "Hospitals/h4.jpg",563421)
+    # h10 = Hospital("Private Hospital 5", "MNO", "+518345", [218,192], "Subway 10", "Private", "Hospitals/h5.jpg",564322)
+    # #And append it to listHospitals list
+    # listHospitals.append(h1)
+    # listHospitals.append(h2)
+    # listHospitals.append(h3)
+    # listHospitals.append(h4)
+    # listHospitals.append(h5)
+    # listHospitals.append(h6)
+    # listHospitals.append(h7)
+    # listHospitals.append(h8)
+    # listHospitals.append(h9)
+    # listHospitals.append(h10)
     root = Tk()
     MainWindow(root)
     root.mainloop()
+
 if __name__ == "__main__":
     main()
 
