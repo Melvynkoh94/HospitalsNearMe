@@ -14,7 +14,7 @@ class Hospital_TEST:
 
   def __str__(self):
     return "{} is located at {}\nPostal Code: {}\nNearest Subway: {}\nMapLocation: {}".format(self.hName, self.hAddress, self.hPostalCode, self.hNearestSubway, self.hLocation)
-    
+
 
 #A hospital class
 class Hospital:
