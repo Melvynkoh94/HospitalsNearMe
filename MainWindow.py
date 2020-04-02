@@ -120,9 +120,9 @@ class LocationWindow:
                ttk.Style().configure("TButton", font=('Arial', 10),width = 10)
                ShowHospitalsWindow(self.newWindow, [random.randrange(300), random.randrange(200)] ,self.public_or_private)
            else:
-                messagebox.showerror("Error", "Please enter a valid post code")
+                messagebox.showerror("Error", "Please enter a valid postal code")
         else:
-           messagebox.showerror("Error", "Please enter a 6 digit post code") 
+           messagebox.showerror("Error", "Please enter a 6 digit postal code") 
 
 
     #Function when the location is specified
@@ -355,10 +355,12 @@ class ShowHospitalRecord:
         logoLabel.pack(side = LEFT)
         labelTitle = Label(logoFrame, text = "HOSPITAL CITY",bg = '#d0e1f3', font=("Arial", 20, 'bold')).pack(side = RIGHT, pady = 20)
         #Creating a canvas on which the image of hospital is placed
-        canvas = Canvas(self.master, bg = '#d0e1f3', width=500, height=500)
+        canvas = Canvas(self.master, bg = '#d0e1f3')
         #hos[] ==['Changi General Hospital', '2 Simei Street 3, Singapore 529889', '+6583888832', [16, 57], 'Tampines', 'Public', 'Hospitals/h1.jpg', '529889', 293.6153946917634]
         try:
-            img = ImageTk.PhotoImage(Image.open(self.hos[6]))
+            img = Image.open(self.hos[6])
+            # img = img.resize((200,300))
+            img = ImageTk.PhotoImage(img)
             canvas.create_image(0,0,image=img)
             canvas.image = img
         except Exception as e:
@@ -388,17 +390,20 @@ class ShowHospitalRecord:
 
 
 def main():
-    hospital_list = exportFromJson("hospitals_list.json")
+    hospitals_list = exportFromJson("hospitals_list.json")
     print(hospitals_list[0])
+    postalCode_list = []
     for i in range(34):
         listHospitals.append(Hospital_TEST(hospitals_list[i]['Hospital Name'],
         hospitals_list[i]['Address'],
-        "+6563612345",
-        hospital_list[i]['MapLocation'],
+        hospitals_list[i]['Contact'],
+        hospitals_list[i]['MapLocation'],
         hospitals_list[i]['Region'],
         hospitals_list[i]['Type'],
-        hospital_list[i]['Image']))
+        hospitals_list[i]['Image']))
+        postalCode_list.append(listHospitals[i].hPostalCode)
     print("List of Hospitals imported from JSON: \n", listHospitals[0].__str__())
+    print("***Postal Codes:", postalCode_list)
 
     root = Tk()
     MainWindow(root)
