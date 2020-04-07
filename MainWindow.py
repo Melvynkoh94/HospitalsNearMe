@@ -335,14 +335,17 @@ class ShowHospitalsWindow:
                 else:
                     self.setHospitalToListBoxPrivate()
 
-#Class to show the hospitals records
+# Class to show the hospitals records
+# Abstraction: Hiding unnecessary details - when this is called upon in ShowHospitalsWindow class, a new object instance of ShowHospitalRecord is created, a new window that shows a hospital record selected.
+# This abstraction allows the ShowHospitalsWindow class to ignore the details of ShowHospitalRecord, as the complex implementations in ShowHospitalRecord are already handled 
 class ShowHospitalRecord:
     def __init__(self, master , hospitalDetail):
         #Intializing the hospital data and placing widgets
         self.master = master
         self.hos = hospitalDetail
         self.master.config(bg = '#d0e1f3')
-        self.master.geometry('850x960')
+        # self.master.geometry('850x960')
+        self.master.geometry('550x760')
         self.master.title('Hospitals City')
         self.widgets()
     def widgets(self):
@@ -359,9 +362,9 @@ class ShowHospitalRecord:
         #hos[] ==['Changi General Hospital', '2 Simei Street 3, Singapore 529889', '+6583888832', [16, 57], 'Tampines', 'Public', 'Hospitals/h1.jpg', '529889', 293.6153946917634]
         try:
             img = Image.open(self.hos[6])
-            # img = img.resize((200,300))
+            img = img.resize((400,300))
             img = ImageTk.PhotoImage(img)
-            canvas.create_image(0,0,image=img)
+            canvas.create_image(0,0,image=img, anchor=NW, state="normal")
             canvas.image = img
         except Exception as e:
             print(e)
@@ -391,10 +394,13 @@ class ShowHospitalRecord:
 
 def main():
     hospitals_list = exportFromJson("hospitals_list.json")
-    print(hospitals_list[0])
+
+    # Pattern recognition: The use of pattern recognition is demonstrated here with the postalCode_list being the variable to be populated later on
+    # The iterative for loop populates the postalCode_list variable by iterating all the elements in hospitals_list. 
+    # The argument in range() is based on the length/size of the hospitals_list
     postalCode_list = []
-    for i in range(34):
-        listHospitals.append(Hospital_TEST(hospitals_list[i]['Hospital Name'],
+    for i in range(len(hospitals_list)):
+        listHospitals.append(Hospital(hospitals_list[i]['Hospital Name'],
         hospitals_list[i]['Address'],
         hospitals_list[i]['Contact'],
         hospitals_list[i]['MapLocation'],
