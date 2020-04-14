@@ -170,8 +170,9 @@ class ShowHospitalsWindow:
             h2.append(h.hContact)
             h2.append(h.hLocation)
             h2.append(h.hNearestSubway)
-            h2.append(h.hType)
+            h2.append(h.hType)           
             h2.append(h.hImage)
+            h2.append(h.hAbout)
             h2.append(h.hPostalCode)
             distance = self.distance_a_b(self.cords_OR_postal, h.hLocation)
             h2.append(distance)
@@ -376,6 +377,8 @@ class ShowHospitalRecord:
         label1.pack()
         label2 = Label(self.master, text = "Nearest Subway: "+str(self.hos[4]),font=("Arial", 15),bg = '#d0e1f3')
         label2.pack()
+        label3 = Label(self.master, text = "About The Hospital: "+str(self.hos[7]),font=("Arial", 15),bg = '#d0e1f3', wraplength=450)
+        label3.pack()
 
         buttonFrame = Frame(self.master,bg = '#d0e1f3')
         buttonFrame.pack(pady = 40, side = BOTTOM)
@@ -406,6 +409,7 @@ def main():
         hospitals_list[i]['MapLocation'],
         hospitals_list[i]['Region'],
         hospitals_list[i]['Type'],
+        hospitals_list[i]['About'],
         hospitals_list[i]['Image']))
         postalCode_list.append(listHospitals[i].hPostalCode)
     print("List of Hospitals imported from JSON: \n", listHospitals[0].__str__())
