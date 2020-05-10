@@ -6,16 +6,16 @@ With a total of 32 hospitals around the island, this desktop application finds t
 * [JSON] - configure details of hospitals with no code changes; easy for humans to read and write
 
 ## Demos
-### Main Menu
+### 1. Main Menu
 ![Screengrab of Tkinter App MainMenu](./DemoScreenshots/MainMenu.JPG)
 
-### Enter your Postal Code or Indicate on the map your location
+### 2. Enter your Postal Code or Indicate on the map your location
 ![Screengrab of Tkinter App PostalCode](./DemoScreenshots/PostalCode.JPG)
 
-### Based on the postal code, a list of hospitals are displayed, sorted according to distance
+### 3. Based on the postal code, a list of hospitals are displayed, sorted according to distance
 ![Screengrab of Tkinter App ListofHospitals](./DemoScreenshots/ListofHospitals.JPG)
 
-### Finally, a description of the hospital of your choice
+### 4. Finally, a description of the hospital of your choice
 ![Screengrab of Tkinter App HospitalDescription](./DemoScreenshots/HospitalDescription.JPG)
 
 
